@@ -1,0 +1,10 @@
+node_modules
+
+# system files
+.DS_Store
+
+# build dist
+out
+
+# excutable
+futhark
