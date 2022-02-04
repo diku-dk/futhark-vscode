@@ -12,7 +12,7 @@ let client: LanguageClient
 // entry point of the extension
 export async function activate(context: ExtensionContext) {
   // temporarily put executable in the same folder as the extension
-  const serverExecutable = context.asAbsolutePath('futhark')
+  const serverExecutable = context.asAbsolutePath('futhark-language-server')
   // run `futhark lsp program` to fire up the language server
   const args = ['lsp', 'program']
 
