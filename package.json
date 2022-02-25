@@ -19,7 +19,8 @@
         "aliases": [
           "Futhark",
           "futhark"
-        ]
+        ],
+        "configuration": "./language-configuration.json"
       }
     ],
     "configuration": {
