@@ -1,6 +1,14 @@
 # Futhark for Visual Studio Code
 
-WIP
+**The language extension is still in the early stage of development, and is not yet published on the extension marketplace.**
+
+This extension adds language support for [Futhark](https://futhark-lang.org/), powered by the [Futhark Language Server](https://github.com/haoranpb/futhark-language-server).
+
+## Usage
+
+1. Download the latest version of `futhark-x.x.x.vsix` from the [Releases](https://github.com/haoranpb/vscode-futhark/releases)
+2. [Install the extension](https://code.visualstudio.com/docs/editor/extension-marketplace#_install-from-a-vsix) from the `VSIX` file
+3. Open a `.fut` file in Visual Studio Code
 
 ## Development
 
