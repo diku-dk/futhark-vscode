@@ -26,7 +26,7 @@
   "activationEvents": [
     "onLanguage:futhark"
   ],
-  "main": "./out/extension",
+  "main": "./out/main",
   "contributes": {
     "languages": [
       {
@@ -48,7 +48,7 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
+    "vscode:prepublish": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node --minify",
     "compile": "tsc -p ."
   },
   "devDependencies": {
@@ -56,6 +56,7 @@
     "@types/vscode": "^1.63.2",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "@typescript-eslint/parser": "^5.10.2",
+    "esbuild": "^0.14.27",
     "eslint": "^8.8.0",
     "eslint-config-prettier": "^8.3.0",
     "prettier": "^2.5.1",
