@@ -1,9 +1,25 @@
 {
-  "name": "futhark-lsp",
+  "name": "futhark",
+  "displayName": "Futhark",
+  "description": "Futhark language support powered by the Futhark Language Server",
   "version": "0.0.1",
-  "publisher": "vscode-futhark",
+  "publisher": "DIKU",
   "engines": {
     "vscode": "^1.64.0"
+  },
+  "keywords": [
+    "language",
+    "futhark",
+    "lsp"
+  ],
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "icon": "https://github.com/haoranpb/vscode-futhark/blob/main/assets/logo.png",
+  "galleryBanner": {
+    "color": "#53001D",
+    "theme": "dark"
   },
   "activationEvents": [
     "onLanguage:futhark"
