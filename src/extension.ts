@@ -1,4 +1,4 @@
-import * as which from 'which'
+import which from 'which'
 import {
   LanguageClient,
   LanguageClientOptions,

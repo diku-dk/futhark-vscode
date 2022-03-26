@@ -12,6 +12,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "strictNullChecks": true,
+    "esModuleInterop": true,
     "lib": [
       "es6"
     ],
