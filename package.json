@@ -48,7 +48,7 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run esbuild -- --minify",
+    "vscode:prepublish": "rm -rf ./out && npm run esbuild -- --minify",
     "esbuild": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node"
   },
   "devDependencies": {
