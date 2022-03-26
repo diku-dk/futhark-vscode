@@ -1,9 +1,9 @@
 {
-  "name": "futhark",
+  "name": "futhark-vscode",
   "displayName": "Futhark",
   "description": "Futhark language support powered by the Futhark Language Server",
   "version": "0.0.1",
-  "publisher": "DIKU",
+  "publisher": "DIKU-haoranpb",
   "repository": "github:diku-dk/futhark-vscode",
   "engines": {
     "vscode": "^1.64.0"
