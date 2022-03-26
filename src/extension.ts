@@ -1,4 +1,5 @@
 import which from 'which'
+import vscode from 'vscode'
 import {
   LanguageClient,
   LanguageClientOptions,
@@ -11,14 +12,12 @@ let client: LanguageClient
 // entry point of the extension
 export async function activate() {
   which('futhark')
-    .then((resulvedPath) => {
-      // temporarily put executable in the same folder as the extension
-      // const serverExecutable = context.asAbsolutePath('futhark')
+    .then((resolvedPath) => {
       // run `futhark lsp` to fire up the language server
       const args = ['lsp']
 
       const serverOptions: ServerOptions = {
-        command: resulvedPath,
+        command: resolvedPath,
         // not sure why stdio over ipc (copied from vscode-haskell)
         transport: TransportKind.stdio,
         args,
@@ -39,7 +38,7 @@ export async function activate() {
       client.start()
     })
     .catch((err) => {
-      console.log("Can't find futhark executable")
+      vscode.window.showErrorMessage("Can't find futhark executable, please follow [Installation](https://futhark.readthedocs.io/en/stable/installation.html) guide.")
       console.error(err)
     })
 }
