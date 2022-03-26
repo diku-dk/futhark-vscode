@@ -4,7 +4,7 @@
   "description": "Futhark language support powered by the Futhark Language Server",
   "version": "0.0.1",
   "publisher": "DIKU",
-  "repository": "github:haoranpb/vscode-futhark",
+  "repository": "github:diku-dk/futhark-vscode",
   "engines": {
     "vscode": "^1.64.0"
   },

@@ -1,21 +1,21 @@
 # Futhark for Visual Studio Code
 
-**The language extension is still in the early stage of development, and is not yet published on the extension marketplace.**
+**The language extension is still in the early stage of development**
 
 This extension adds language support for [Futhark](https://futhark-lang.org/), powered by the [Futhark Language Server](https://github.com/haoranpb/futhark-language-server).
 
-## Usage
+## Common questions
 
-1. Download the latest version of `futhark-x.x.x.vsix` from the [Releases](https://github.com/haoranpb/vscode-futhark/releases)
-2. [Install the extension](https://code.visualstudio.com/docs/editor/extension-marketplace#_install-from-a-vsix) from the `VSIX` file
-3. Open a `.fut` file in Visual Studio Code
+Here are some questions that users may encounter the extension, if your issue is not addressed here, please [open an issue](https://github.com/diku-dk/futhark-vscode/issues/new).
 
-## Development
+### Can't find futhark executable ...
 
-1. Build [futhark language server](https://github.com/haoranpb/futhark-language-server)
-  1. Put newly generated `futhark-language-server` executable in this directory
-2. Install dependencies `npm install`
-3. Open VS Code on this folder
-4. Switch to the `Run and Debug` view in the Sidebar
-5. Run the `Launch Extension` config
-6. In the newly opened VSCode instance, open a document with `.fut` extension
+Futhark language extension requires futhark executable to be installed in $PATH, follow the instructions on [how to install the Futhark compiler](https://futhark.readthedocs.io/en/stable/installation.html).
+
+### Junk argument: lsp
+
+The Futhark Language Server hasn't been merged yet (it's coming soon), so the `futhark lsp` command is not recognized, you will need to manually install a different version of futhark:
+
+1. Clone futhark from [lsp2022](https://github.com/diku-dk/futhark/tree/lsp2022) branch
+2. Compile from source following the [instruction](https://futhark.readthedocs.io/en/stable/installation.html#compiling-from-source)
+3. Install the compiled binary in $PATH
