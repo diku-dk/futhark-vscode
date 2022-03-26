@@ -1,5 +1,5 @@
 import which from 'which'
-import vscode from 'vscode'
+import { window } from 'vscode'
 import {
   LanguageClient,
   LanguageClientOptions,
@@ -38,7 +38,9 @@ export async function activate() {
       client.start()
     })
     .catch((err) => {
-      vscode.window.showErrorMessage("Can't find futhark executable, please follow [Installation](https://futhark.readthedocs.io/en/stable/installation.html) guide.")
+      window.showErrorMessage(
+        "Can't find futhark executable, please follow [Installation](https://futhark.readthedocs.io/en/stable/installation.html) guide."
+      )
       console.error(err)
     })
 }
