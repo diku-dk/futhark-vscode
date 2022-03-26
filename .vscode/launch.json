@@ -14,7 +14,7 @@
       ],
       "preLaunchTask": {
         "type": "npm",
-        "script": "compile"
+        "script": "esbuild"
       },
     }
   ]

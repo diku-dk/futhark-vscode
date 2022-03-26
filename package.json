@@ -48,8 +48,8 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node --minify",
-    "compile": "tsc -p ."
+    "vscode:prepublish": "npm run esbuild -- --minify",
+    "esbuild": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node"
   },
   "devDependencies": {
     "@types/node": "^17.0.14",
