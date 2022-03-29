@@ -1,5 +1,5 @@
 import which from 'which'
-import { window } from 'vscode'
+import { window, commands, ExtensionContext } from 'vscode'
 import {
   LanguageClient,
   LanguageClientOptions,
@@ -10,7 +10,7 @@ import {
 let client: LanguageClient
 
 // entry point of the extension
-export async function activate() {
+export async function activate(context: ExtensionContext) {
   which('futhark')
     .then((resolvedPath) => {
       // run `futhark lsp` to fire up the language server
@@ -34,6 +34,17 @@ export async function activate() {
         serverOptions,
         clientOptions
       )
+
+      const restartCommand = commands.registerCommand(
+        'futhark.commands.restartServer',
+        async () => {
+          client.info('Restarting server...')
+          await client.stop()
+          client.info('Starting server...')
+          client.start()
+        }
+      )
+      context.subscriptions.push(restartCommand)
 
       client.start()
     })

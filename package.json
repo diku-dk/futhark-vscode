@@ -45,7 +45,14 @@
       "type": "object",
       "title": "Futhark",
       "properties": {}
-    }
+    },
+    "commands": [
+      {
+        "command": "futhark.commands.restartServer",
+        "title": "Restart Futhark Language Server",
+        "category": "Futhark"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "rm -rf ./out && npm run esbuild -- --minify",
@@ -63,6 +70,7 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
+    "@types/which": "^2.0.1",
     "vscode-languageclient": "^7.0.0",
     "which": "^2.0.2"
   }
