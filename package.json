@@ -3,7 +3,7 @@
   "displayName": "Futhark",
   "description": "Futhark language support powered by the Futhark Language Server",
   "version": "0.0.1",
-  "publisher": "DIKU-haoranpb",
+  "publisher": "DIKU",
   "repository": "github:diku-dk/futhark-vscode",
   "engines": {
     "vscode": "^1.64.0"
