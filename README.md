@@ -4,6 +4,12 @@
 
 This extension adds language support for [Futhark](https://futhark-lang.org/), powered by the [Futhark Language Server](https://github.com/haoranpb/futhark-language-server).
 
+## Features
+
+- Warnings and errors diagnostics from futhark compiler
+- Information on hover
+- More to come...
+
 ## Common questions
 
 Here are some questions that users may encounter the extension, if your issue is not addressed here, please [open an issue](https://github.com/diku-dk/futhark-vscode/issues/new).
