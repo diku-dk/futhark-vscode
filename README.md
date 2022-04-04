@@ -2,7 +2,7 @@
 
 **The language extension is still in the early stage of development**
 
-This extension adds language support for [Futhark](https://futhark-lang.org/), powered by the [Futhark Language Server](https://github.com/haoranpb/futhark-language-server).
+This extension adds language support for [Futhark](https://futhark-lang.org/), powered by the [Futhark Language Server](https://github.com/diku-dk/futhark/tree/master/src/Futhark/LSP).
 
 ## Features
 
@@ -12,7 +12,7 @@ This extension adds language support for [Futhark](https://futhark-lang.org/), p
 
 ## Common questions
 
-Here are some questions that users may encounter the extension, if your issue is not addressed here, please [open an issue](https://github.com/diku-dk/futhark-vscode/issues/new).
+Here are some questions that users may encounter while using the extension, if your issue is not addressed here, please [open an issue](https://github.com/diku-dk/futhark-vscode/issues/new).
 
 ### Can't find futhark executable ...
 
@@ -20,8 +20,4 @@ Futhark language extension requires futhark executable to be installed in $PATH,
 
 ### Junk argument: lsp
 
-The Futhark Language Server hasn't been merged yet (it's coming soon), so the `futhark lsp` command is not recognized, you will need to manually install a different version of futhark:
-
-1. Clone futhark from [lsp2022](https://github.com/diku-dk/futhark/tree/lsp2022) branch
-2. Compile from source following the [instruction](https://futhark.readthedocs.io/en/stable/installation.html#compiling-from-source)
-3. Install the compiled binary in $PATH
+The Futhark Language Server will be available in the next release of futhark, so the `futhark lsp` command may not be recognized in your current version, you will need to install futhark via [compiling from source](https://futhark.readthedocs.io/en/stable/installation.html#compiling-from-source).
