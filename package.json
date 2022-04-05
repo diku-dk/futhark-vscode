@@ -41,6 +41,13 @@
         "configuration": "./language-configuration.json"
       }
     ],
+    "grammars": [
+      {
+        "language": "futhark",
+        "scopeName": "source.futhark",
+        "path": "./futhark.tmLanguage.json"
+      }
+    ],
     "configuration": {
       "type": "object",
       "title": "Futhark",
