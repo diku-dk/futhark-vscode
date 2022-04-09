@@ -10,3 +10,6 @@ out
 # excutable
 futhark
 futhark-language-server
+
+# ignore personal configurations
+.vscode/settings.json
