@@ -21,3 +21,43 @@ Futhark language extension requires futhark executable to be installed in $PATH,
 ### Junk argument: lsp
 
 The Futhark Language Server will be available in the next release of futhark, so the `futhark lsp` command may not be recognized in your current version, you will need to install futhark via [compiling from source](https://futhark.readthedocs.io/en/stable/installation.html#compiling-from-source).
+
+## Development
+
+Here are some resources to help you get started with developing the futhark extension:
+
+### Debugging
+
+You will need [nodejs](https://nodejs.org/en/) and [vscode](https://code.visualstudio.com/) installed.
+
+1. `git clone https://github.com/diku-dk/futhark-vscode.git`
+2. `cd futhark-vscode && npm install`
+3. Open the futhark-vscode repository with VS Code
+4. Find the **Run and Debug** from the **Activity Bar** on the left, select the **Launch Extension** launch configuration, and press the **Start Debugging** button to launch an additional Extension Development Host instance of VS Code that executes the extension code. (More information on how to debug with vscode can be found [here](https://code.visualstudio.com/docs/editor/debugging).)
+5. Create a `test.fut` file in the root folder write some code!
+
+### Structure
+
+The futhark-vscode repository consists of many files and folders, here are some of the most interesting ones:
+
+- `.vscode/`: development settings for vscode, such as debugging configuration and recommended extensions
+- `assets/`: contains the asset files for the [marketplace](https://marketplace.visualstudio.com/items?itemName=DIKU.futhark-vscode), such as the logo
+- `src/`: the source code for the extension
+- `.vscodeignore`: used to exclude files from being included in your extension's package (more [here](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#using-.vscodeignore))
+- `language-configuration.json`: the [language configuration](https://code.visualstudio.com/api/language-extensions/language-configuration-guide) file for the extension
+- `package.json`: the [extension manifest](https://code.visualstudio.com/api/references/extension-manifest)
+
+### Deployment
+
+Github Actions [publish-vscode-extension](https://github.com/HaaLeo/publish-vscode-extension) and [action-gh-release](https://github.com/softprops/action-gh-release) are enabled for easy deployment of the extension. To publish a new release, simply follow the steps below:
+
+1. Change the version in the `package.json` to the new one (e.g. `x.y.z`) 
+2. Tag the new version by running `git tag vx.y.z` (Note: **tag must start with v**)
+3. Push your changes and tags to the remote repository
+   ```shell
+    git add package.json
+    git commit -m "x.y.z"
+    git push --tags
+   ```
+
+TBA: More information about how to publish, e.g. creation of Personal Access Token, etc. ([source](https://code.visualstudio.com/api/working-with-extensions/publishing-extension))
