@@ -1,6 +1,9 @@
 .vscode
+.github
 src
 *.json
 .gitignore
 node_modules
 **/*.map
+!language-configuration.json
+!package.json
