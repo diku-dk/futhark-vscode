@@ -8,6 +8,8 @@ This extension adds language support for [Futhark](https://futhark-lang.org/), p
 
 - Warnings and errors diagnostics from futhark compiler
 - Information on hover
+- Syntax highlighting
+- Basic language features, e.g. comment toggling, etc
 - More to come...
 
 ## Common questions
@@ -58,7 +60,7 @@ Github Actions [publish-vscode-extension](https://github.com/HaaLeo/publish-vsco
    ```shell
     git add package.json
     git commit -m "x.y.z"
-    git push --tags
+    git push && git push --tags
    ```
 
 TBA: More information about how to publish, e.g. creation of Personal Access Token, etc. ([source](https://code.visualstudio.com/api/working-with-extensions/publishing-extension))
