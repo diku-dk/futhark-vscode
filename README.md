@@ -45,6 +45,7 @@ The futhark-vscode repository consists of many files and folders, here are some 
 - `src/`: the source code for the extension
 - `.vscodeignore`: used to exclude files from being included in your extension's package (more [here](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#using-.vscodeignore))
 - `language-configuration.json`: the [language configuration](https://code.visualstudio.com/api/language-extensions/language-configuration-guide) file for the extension
+- `futhark.tmLanguage.json`: the [TextMate grammars configuration](https://code.visualstudio.com/api/language-extensions/syntax-highlight-guide) for the futhark language
 - `package.json`: the [extension manifest](https://code.visualstudio.com/api/references/extension-manifest)
 
 ### Deployment

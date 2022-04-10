@@ -45,7 +45,7 @@
       {
         "language": "futhark",
         "scopeName": "source.futhark",
-        "path": "./syntaxes/futhark.tmLanguage.json"
+        "path": "./futhark.tmLanguage.json"
       }
     ],
     "configuration": {
