@@ -23,6 +23,16 @@ export async function activate(context: ExtensionContext) {
         args,
       }
 
+      window.onDidChangeActiveTextEditor((editor) => {
+        if (editor) {
+          const focusedURI = editor.document.uri.toString()
+
+          if (focusedURI.endsWith('.fut')) {
+            client.sendNotification('custom/onFocusTextDocument', focusedURI)
+          }
+        }
+      })
+
       const clientOptions: LanguageClientOptions = {
         documentSelector: [{ scheme: 'file', language: 'futhark' }],
       }
