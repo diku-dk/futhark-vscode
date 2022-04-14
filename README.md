@@ -9,6 +9,7 @@ This extension adds language support for [Futhark](https://futhark-lang.org/), p
 - Warnings and errors diagnostics from futhark compiler
 - Information on hover
 - Syntax highlighting
+- Go to definition
 - Basic language features, e.g. comment toggling, etc
 - More to come...
 
@@ -20,9 +21,9 @@ Here are some questions that users may encounter while using the extension, if y
 
 Futhark language extension requires futhark executable to be installed in $PATH, follow the instructions on [how to install the Futhark compiler](https://futhark.readthedocs.io/en/stable/installation.html).
 
-### Junk argument: lsp
+### Futhark version is too low ...
 
-The Futhark Language Server will be available in the next release of futhark, so the `futhark lsp` command may not be recognized in your current version, you will need to install futhark via [compiling from source](https://futhark.readthedocs.io/en/stable/installation.html#compiling-from-source).
+The Futhark Language Server is available as part of futhark from version `0.21.9` and later, please update futhark following [Installation](https://futhark.readthedocs.io/en/stable/installation.html) guide. You can run `futhark --version` to check your futhark's version.
 
 ## Development
 
@@ -50,7 +51,7 @@ The futhark-vscode repository consists of many files and folders, here are some 
 - `futhark.tmLanguage.json`: the [TextMate grammars configuration](https://code.visualstudio.com/api/language-extensions/syntax-highlight-guide) for the futhark language
 - `package.json`: the [extension manifest](https://code.visualstudio.com/api/references/extension-manifest)
 
-### Deployment
+### Release
 
 Github Actions [publish-vscode-extension](https://github.com/HaaLeo/publish-vscode-extension) and [action-gh-release](https://github.com/softprops/action-gh-release) are enabled for easy deployment of the extension. To publish a new release, simply follow the steps below:
 
