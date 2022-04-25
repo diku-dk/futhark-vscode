@@ -11,12 +11,13 @@ import {
 
 let client: LanguageClient
 const minFutharkVersion = '0.21.9'
+const langName = 'futhark'
 
 // entry point of the extension
 export async function activate(context: ExtensionContext) {
   which('futhark')
     .then((resolvedPath) => {
-      const version = execSync('futhark --version', {
+      const futharkVersion = execSync('futhark --version', {
         encoding: 'utf-8',
       })
         .split(/\r?\n/)[0]
@@ -24,17 +25,10 @@ export async function activate(context: ExtensionContext) {
 
       // check if futhark's version is compatible
       // lsp included since futhark 0.21.9
-      if (version && semver.gte(version[0], minFutharkVersion)) {
-        const args = ['lsp'] // run `futhark lsp` to fire up the language server
-
-        const serverOptions: ServerOptions = {
-          command: resolvedPath,
-          // not sure why stdio over ipc (copied from vscode-haskell)
-          transport: TransportKind.stdio,
-          args,
-        }
-
+      if (futharkVersion && semver.gte(futharkVersion[0], minFutharkVersion)) {
         window.onDidChangeActiveTextEditor((editor) => {
+          // fire custom event "custom/onFocusTextDocument"
+          // so that the language server can re-compile on focus
           if (editor) {
             const focusedURI = editor.document.uri.toString()
 
@@ -48,7 +42,13 @@ export async function activate(context: ExtensionContext) {
           documentSelector: [{ scheme: 'file', language: 'futhark' }],
         }
 
-        const langName = 'futhark'
+        const serverOptions: ServerOptions = {
+          command: resolvedPath,
+          // not sure why stdio over ipc (copied from vscode-haskell)
+          transport: TransportKind.stdio,
+          args: ['lsp'], // run `futhark lsp` to fire up the language server
+        }
+
         client = new LanguageClient(
           langName,
           langName,
@@ -70,7 +70,7 @@ export async function activate(context: ExtensionContext) {
         client.start()
       } else {
         window.showErrorMessage(
-          `Futhark version is too low, the version you are using is ${version},
+          `Futhark version is too low, the version you are using is ${futharkVersion},
            but Futhark Language Server is available as part of futhark from version ${minFutharkVersion}
            please follow [Installation](https://futhark.readthedocs.io/en/stable/installation.html) guide to upgrade.`
         )
