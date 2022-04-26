@@ -10,7 +10,7 @@ import {
 } from 'vscode-languageclient/node'
 
 let client: LanguageClient
-const minFutharkVersion = '0.21.9'
+const minFutharkVersion = '0.21.9' // lsp included since futhark 0.21.9
 const langName = 'futhark'
 
 // entry point of the extension
@@ -24,7 +24,6 @@ export async function activate(context: ExtensionContext) {
         .match(/\d+\.\d+\.\d+/)
 
       // check if futhark's version is compatible
-      // lsp included since futhark 0.21.9
       if (futharkVersion && semver.gte(futharkVersion[0], minFutharkVersion)) {
         window.onDidChangeActiveTextEditor((editor) => {
           // fire custom event "custom/onFocusTextDocument"
@@ -66,6 +65,19 @@ export async function activate(context: ExtensionContext) {
           }
         )
         context.subscriptions.push(restartCommand)
+
+        const newTerminalCommand = commands.registerCommand(
+          'futhark.commands.newTerminal',
+          async () => {
+            const terminal = window.createTerminal({
+              name: langName,
+              message: undefined,
+            })
+            terminal.sendText('futhark repl')
+            terminal.show()
+          }
+        )
+        context.subscriptions.push(newTerminalCommand)
 
         client.start()
       } else {

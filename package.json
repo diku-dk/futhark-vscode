@@ -58,6 +58,11 @@
         "command": "futhark.commands.restartServer",
         "title": "Restart Futhark Language Server",
         "category": "Futhark"
+      },
+      {
+        "command": "futhark.commands.newTerminal",
+        "title": "Create a new terminal with futhark REPL",
+        "category": "Futhark"
       }
     ]
   },
