@@ -51,7 +51,14 @@
     "configuration": {
       "type": "object",
       "title": "Futhark",
-      "properties": {}
+      "properties": {
+        "futhark.futharkExecutablePath": {
+          "scope": "resource",
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Manually set a futhark executable. Mostly used for debugging for now, so we don't have to put the WIP executable in `$PATH`."
+        }
+      }
     },
     "commands": [
       {
