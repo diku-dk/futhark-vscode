@@ -76,11 +76,10 @@ export async function activate(context: ExtensionContext) {
         )
       }
     })
-    .catch((err) => {
+    .catch(() => {
       window.showErrorMessage(
         "Can't find futhark executable, please follow [Installation](https://futhark.readthedocs.io/en/stable/installation.html) guide."
       )
-      console.error(err)
     })
 }
 
