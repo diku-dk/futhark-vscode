@@ -4,18 +4,14 @@
     {
       "name": "Launch Extension",
       "request": "launch",
-      "type": "pwa-extensionHost",
+      "type": "extensionHost",
       "runtimeExecutable": "${execPath}",
-      "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}"
-      ],
-      "outFiles": [
-        "${workspaceFolder}/out/**/*.js"
-      ],
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+      "outFiles": ["${workspaceFolder}/out/**/*.js"],
       "preLaunchTask": {
         "type": "npm",
         "script": "esbuild"
-      },
+      }
     }
   ]
 }
