@@ -2,7 +2,7 @@
   "name": "futhark-vscode",
   "displayName": "Futhark",
   "description": "Futhark language support powered by the Futhark Language Server",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "DIKU",
   "repository": "github:diku-dk/futhark-vscode",
   "engines": {
@@ -51,7 +51,14 @@
     "configuration": {
       "type": "object",
       "title": "Futhark",
-      "properties": {}
+      "properties": {
+        "futhark.futharkExecutablePath": {
+          "scope": "resource",
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Manually set a futhark executable, the path must ends `futhark` (e,g, `~/.local/bin/futhark`), supports `~` and `${HOME}`. Reload Window after change to take effect."
+        }
+      }
     },
     "commands": [
       {
@@ -63,7 +70,8 @@
   },
   "scripts": {
     "vscode:prepublish": "rm -rf ./out && npm run esbuild -- --minify",
-    "esbuild": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node"
+    "esbuild": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+    "esbuild:dev": "npm run esbuild -- --sourcemap"
   },
   "devDependencies": {
     "@types/node": "^17.0.14",

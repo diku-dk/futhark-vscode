@@ -13,3 +13,6 @@ futhark-language-server
 
 # ignore personal configurations
 .vscode/settings.json
+
+# test files
+*.fut
