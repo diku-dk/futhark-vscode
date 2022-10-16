@@ -2,15 +2,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Extension",
+      "name": "Dev Futhark Extension",
       "request": "launch",
       "type": "extensionHost",
       "runtimeExecutable": "${execPath}",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+      "args": ["--disable-extensions", "--extensionDevelopmentPath=${workspaceFolder}"],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
       "preLaunchTask": {
         "type": "npm",
-        "script": "esbuild"
+        "script": "esbuild:dev"
       }
     }
   ]
