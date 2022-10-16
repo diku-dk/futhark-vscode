@@ -56,7 +56,7 @@
           "scope": "resource",
           "type": "string",
           "default": "",
-          "markdownDescription": "Manually set a futhark executable. Mostly used for debugging for now, so we don't have to put the WIP executable in `$PATH`."
+          "markdownDescription": "Manually set a futhark executable, the path must ends `futhark` (e,g, `~/.local/bin/futhark`), supports `~` and `${HOME}`. Mostly used for debugging for now, so we don't have to put the WIP executable in `$PATH`."
         }
       }
     },
@@ -70,7 +70,8 @@
   },
   "scripts": {
     "vscode:prepublish": "rm -rf ./out && npm run esbuild -- --minify",
-    "esbuild": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node"
+    "esbuild": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+    "esbuild:dev": "npm run esbuild -- --sourcemap"
   },
   "devDependencies": {
     "@types/node": "^17.0.14",
