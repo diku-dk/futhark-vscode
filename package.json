@@ -56,7 +56,7 @@
           "scope": "resource",
           "type": "string",
           "default": "",
-          "markdownDescription": "Manually set a futhark executable, the path must ends `futhark` (e,g, `~/.local/bin/futhark`), supports `~` and `${HOME}`. Mostly used for debugging for now, so we don't have to put the WIP executable in `$PATH`."
+          "markdownDescription": "Manually set a futhark executable, the path must ends `futhark` (e,g, `~/.local/bin/futhark`), supports `~` and `${HOME}`. Reload Window after change to take effect."
         }
       }
     },
