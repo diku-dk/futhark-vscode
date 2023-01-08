@@ -56,7 +56,13 @@
           "scope": "resource",
           "type": "string",
           "default": "",
-          "markdownDescription": "Manually set a futhark executable, the path must ends `futhark` (e,g, `~/.local/bin/futhark`), supports `~` and `${HOME}`. Reload Window after change to take effect."
+          "markdownDescription": "Path to a Futhark executable. Supports `~` and `${HOME}`. Reload window after modifying."
+        },
+        "futhark.useWSL": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": "false",
+          "markdownDescription": "When using Windows, run Futhark within Windows Subsystem for Linux (WSL)."
         }
       }
     },
@@ -86,7 +92,6 @@
   },
   "dependencies": {
     "@types/semver": "^7.3.9",
-    "@types/which": "^2.0.1",
     "vscode-languageclient": "^7.0.0",
     "which": "^2.0.2"
   }

@@ -1,7 +1,6 @@
-import which from 'which'
 import { execSync } from 'child_process'
 import semver from 'semver'
-import { window, workspace, commands, ExtensionContext } from 'vscode'
+import { window, workspace, commands, ExtensionContext, env, Uri } from 'vscode'
 import {
   LanguageClient,
   LanguageClientOptions,
@@ -17,9 +16,12 @@ const langName = 'futhark'
 // entry point of the extension
 export async function activate(context: ExtensionContext) {
   const futharkConfig = workspace.getConfiguration(langName)
-  const futharkExecutable = findFutharkExecutable(futharkConfig.get('futharkExecutablePath'))
+  const futharkServerOptions = validateFutharkPath(
+    futharkConfig.get('futharkExecutablePath'),
+    futharkConfig.get('useWSL')
+  )
 
-  if (futharkExecutable) {
+  if (futharkServerOptions) {
     window.onDidChangeActiveTextEditor((editor) => {
       // fire custom event "custom/onFocusTextDocument"
       // so that the language server can re-compile on focus
@@ -36,14 +38,7 @@ export async function activate(context: ExtensionContext) {
       documentSelector: [{ scheme: 'file', language: langName }],
     }
 
-    const serverOptions: ServerOptions = {
-      command: futharkExecutable,
-      // not sure why stdio over ipc (copied from vscode-haskell)
-      transport: TransportKind.stdio,
-      args: ['lsp'], // run `futhark lsp` to fire up the language server
-    }
-
-    client = new LanguageClient(langName, langName, serverOptions, clientOptions)
+    client = new LanguageClient(langName, langName, futharkServerOptions, clientOptions)
 
     const restartCommand = commands.registerCommand('futhark.commands.restartServer', async () => {
       client.info('Restarting server...')
@@ -64,38 +59,101 @@ export function deactivate(): Thenable<void> | undefined {
   return client.stop()
 }
 
-function findFutharkExecutable(userDefinedPath: string | undefined): string | null {
-  const potentialExecutablePath = userDefinedPath ? userDefinedPath : langName
-  const executablePath = which.sync(resolveHOMEPlaceHolders(potentialExecutablePath), {
-    nothrow: true,
-  })
+function validateFutharkPath(
+  userDefinedPath: string | undefined,
+  useWSL: boolean | undefined
+): ServerOptions | null {
+  let executablePath = resolveHOMEPlaceHolders(userDefinedPath ? userDefinedPath : langName)
 
-  if (executablePath && executablePath.endsWith(langName)) {
-    const futharkVersion = execSync(`${executablePath} --version`, {
-      encoding: 'utf-8',
-    })
-      .split(/\r?\n/)[0]
-      .match(/\d+\.\d+\.\d+/)
-
-    if (futharkVersion && semver.gte(futharkVersion[0], minFutharkVersion)) {
-      return executablePath
-    } else {
-      window.showErrorMessage(
-        `Futhark version is too low, the version you are using is ${futharkVersion},
-         but Futhark Language Server is available as part of futhark from version ${minFutharkVersion}
-         please follow [Installation](https://futhark.readthedocs.io/en/stable/installation.html) guide to upgrade.`
-      )
-      return null
+  // Retrieve output of Futhark's version command
+  let futharkOutput;
+  try {
+    // WSL
+    if (process.platform == 'win32' && useWSL) {
+      futharkOutput = execSync(`wsl ${executablePath} --version`, {
+        encoding: 'utf-8',
+      })
+    } 
+    // Non-WSL
+    else {
+      futharkOutput = execSync(`${executablePath} --version`, {
+        encoding: 'utf-8',
+      })
     }
-  } else {
+  } catch (err) {
+    // Error in user's defined executable path
     if (userDefinedPath) {
       window.showErrorMessage(
-        `The path defined ("${userDefinedPath}") is not a valid futhark executable.`
-      )
+          `Futhark: Please validate executable path and reload the window.`,
+          'Open Settings'
+        )
+        .then((selection) => {
+          commands.executeCommand('workbench.action.openSettings', '@ext:DIKU.futhark-vscode')
+        })
     }
-    window.showErrorMessage(
-      "Can't find futhark executable, please follow [Installation](https://futhark.readthedocs.io/en/stable/installation.html) guide."
-    )
-    return null
+    // Cannot find Futhark in system path
+    else {
+      window.showErrorMessage(
+          `Futhark: Please install Futhark using the [Installation](https://futhark.readthedocs.io/en/stable/installation.html) guide. If using WSL, you may need to manually specify Futhark's path.`,
+          'Open Settings',
+          'Open Installation Guide'
+        )
+        .then((selection) => {
+          if (selection == 'Open Settings') {
+            commands.executeCommand('workbench.action.openSettings', '@ext:DIKU.futhark-vscode')
+          } else {
+            env.openExternal(Uri.parse('https://futhark.readthedocs.io/en/stable/installation.html'))
+          }
+        })
+    }
+    console.error(err)
+    return null;
   }
+
+  // Determine the version of this Futhark executable
+  const futharkVersion = futharkOutput.match(/Futhark\s(\d+\.\d+\.\d+)/)
+
+  // Success: We find a version number and it supports LSP. Return the ServerOptions for this executable path.
+  if (futharkVersion && semver.gte(futharkVersion[1], minFutharkVersion)) {
+    // WSL
+    if (process.platform == 'win32' && useWSL) {
+      return {
+        command: 'wsl',
+        args: [executablePath, 'lsp'],
+        transport: TransportKind.stdio,
+      }
+    }
+    // Non-WSL
+    else {
+      return {
+        command: executablePath,
+        args: ['lsp'], // run `futhark lsp` to fire up the language server
+        // not sure why stdio over ipc (copied from vscode-haskell)
+        transport: TransportKind.stdio,
+      }
+    }
+  }
+  // Fail: We find a version number, but it doesn't support LSP
+  else if (futharkVersion && futharkVersion[1]) {
+    window.showErrorMessage(
+        `Futhark: Outdated version of Futhark (${futharkVersion[1]}). Futhark Language Server is only available after version ${minFutharkVersion}. Please follow the [Installation](https://futhark.readthedocs.io/en/stable/installation.html) guide to upgrade.`,
+        'Open Installation Guide'
+      )
+      .then((selection) => {
+        env.openExternal(Uri.parse('https://futhark.readthedocs.io/en/stable/installation.html'))
+      })
+    console.error(futharkOutput)
+  }
+  // Fail: We cannot find a version number. It's a valid executable, but likely not Futhark.
+  else {
+    window.showErrorMessage(
+        `Futhark: Error identifying version. Please confirm that this is a valid Futhark executable.`,
+        'Open Settings'
+      )
+      .then((selection) => {
+        commands.executeCommand('workbench.action.openSettings', '@ext:DIKU.futhark-vscode')
+      })
+    console.error(futharkOutput)
+  }
+  return null
 }
